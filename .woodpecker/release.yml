@@ -1,0 +1,13 @@
+steps:
+  install:
+    image: madnificent/ember:5.12.0
+    commands:
+      - npm ci
+  release:
+    image: plugins/npm
+    settings:
+      token:
+        from_secret: npm_access_token
+when:
+  - event: tag
+    ref: refs/tags/*

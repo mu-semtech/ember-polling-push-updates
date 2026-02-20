@@ -28,9 +28,12 @@ export default class PushUpdatesService extends Service {
     if( ! this.tabUriP ) {
       this.tabUriP = new Promise( async (acc, rej) => {
         try {
-          const body = await fetch(`/polling/tabUri`);
+          const body = await fetch(`/polling/tab-ids`, {
+            method: 'POST',
+            headers: { 'Accept': 'application/vnd.api+json' }
+          });
           const resp = await body.json();
-          const tabUri = resp.data.attributes.tabUri;
+          const tabUri = resp.data.attributes.uri;
           this.tabUri = tabUri;
           acc(tabUri);
         } catch (e) {
